@@ -1,0 +1,2 @@
+- [Clerk React v6](clerk-react-v6.md) — use the current `Show` auth boundary API; managed Clerk does not provide phone/SMS sign-in.
+- [Expo NativeTabs preview guard](expo-native-tabs-preview.md) — gate NativeTabs with an iOS platform check or web preview can render blank.

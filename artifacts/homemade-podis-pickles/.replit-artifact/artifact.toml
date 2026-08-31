@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Homemade Podis & Pickles"
+description = "A warm, small-batch storefront for discovering and ordering freshly made podis, pickles, and comforting pantry combos with secure account access and a streamlined checkout flow."
+version = "1.0.0"
+id = "artifacts/homemade-podis-pickles"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22924
+
+[services.development]
+run = "pnpm --filter @workspace/homemade-podis-pickles run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/homemade-podis-pickles", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/homemade-podis-pickles/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22924"
+BASE_PATH = "/"
