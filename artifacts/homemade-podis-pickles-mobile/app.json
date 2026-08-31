@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "SD Podis & Pickles",
+    "slug": "sdpodispickles",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "sdpodispickles",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f5eee3"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.sdpodispickles.app"
+    },
+    "android": {
+      "package": "com.sdpodispickles.app"
+    },
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://replit.com/"
+        }
+      ],
+      "expo-font",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

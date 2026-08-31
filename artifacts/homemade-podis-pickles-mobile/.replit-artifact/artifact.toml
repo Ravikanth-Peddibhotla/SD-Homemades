@@ -1,0 +1,24 @@
+kind = "mobile"
+previewPath = "/mobile/"
+title = "Homemade Podis & Pickles Mobile"
+description = "A native Android and iOS companion for discovering small-batch podis and pickles, managing a shopping bag, checking out, and keeping a secure customer account."
+version = "1.0.0"
+id = "artifacts/homemade-podis-pickles-mobile"
+router = "expo-domain"
+
+[[services]]
+name = "expo"
+ensurePreviewReachable = "/status"
+paths = [ "/mobile/" ]
+localPort = 24192
+
+[services.development]
+run = "pnpm --filter @workspace/homemade-podis-pickles-mobile run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/homemade-podis-pickles-mobile", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/homemade-podis-pickles-mobile", "run", "serve" ]
+
+[services.env]
+PORT = "24192"
+BASE_PATH = "/mobile/"

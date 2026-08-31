@@ -1,0 +1,7 @@
+import React from 'react';
+import { Alert, Pressable, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Screen, s } from '@/components/Podis';
+import colors from '@/constants/colors';
+import { useStore } from '@/lib/store';
+export default function Account() { const { isSignedIn } = useStore(); return <Screen title="Account"><View style={s.empty}><Ionicons name="person-circle-outline" size={56} color={colors.light.primary}/><Text style={s.storyTitle}>{isSignedIn ? 'Welcome back' : 'Your pantry, your way'}</Text><Text style={s.description}>{isSignedIn ? 'Your orders and saved jars, all in one place.' : 'Sign in to checkout, track orders and save favourites.'}</Text><Pressable testID="sign-in" onPress={() => Alert.alert('Sign in', 'Connect your Clerk account to continue.')} style={[s.lightButton, { backgroundColor: colors.light.primary, alignSelf: 'stretch', alignItems: 'center' }]}><Text style={[s.buttonText, { color: '#fffaf2' }]}>Sign in</Text></Pressable><Pressable testID="sign-up" onPress={() => Alert.alert('Create account', 'Connect your Clerk account to continue.')}><Text style={s.link}>Create an account</Text></Pressable></View>{isSignedIn && <View><Text style={s.sectionTitle}>Order history</Text><Text style={s.description}>Your recent orders will appear here.</Text></View>}</Screen>; }

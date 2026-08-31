@@ -1,0 +1,62 @@
+# Agent Prompt: Homemade Podis & Pickles — Mobile Commerce App
+
+## Context
+Build a **production-ready, cross-platform mobile application (Android + iOS)** for a home-based food business that sells freshly made **podis and pickles** — no preservatives, no artificial colours — with fast/instant delivery. The app must be built **entirely in the latest version of Angular** (using Ionic + Capacitor, or Angular with NativeScript/Capacitor wrapper, for native iOS/Android builds from a single Angular codebase).
+
+## Tech Stack Requirements
+- **Frontend framework:** Latest stable Angular version.
+- **Mobile packaging:** Angular + Capacitor (recommended) to compile to native Android (.apk/.aab) and iOS (.ipa) builds from one codebase.
+- **State management:** NgRx or Angular Signals (latest idiomatic approach).
+- **Styling:** Angular Material or Ionic UI components, customized to match the brand (warm, homemade, organic aesthetic — earthy tones, spice/pickle imagery).
+- **Backend:** Specify or assume a REST/GraphQL API (Node.js/NestJS or Firebase) for auth, catalog, orders, and payments — agent should propose the backend architecture alongside the Angular app.
+- **Notifications:** Email service (e.g., SendGrid/SES) and WhatsApp Business API (e.g., Twilio or Meta Cloud API) integration.
+- **Payments:** UPI (Razorpay/PayU/Google Pay intents) and Card payments (Razorpay/Stripe), PCI-DSS compliant flow — no raw card data handled client-side.
+
+## Core Features
+
+### 1. Authentication (Login Page)
+- Full-screen **background image** (product/brand imagery).
+- Login via **phone number OR email**, with **OTP verification** (SMS OTP for phone, email OTP/magic-link for email).
+- OTP resend timer, input validation, error handling.
+- Persistent session/token-based auth (JWT) with secure storage (Capacitor Secure Storage).
+
+### 2. Home Page (Post-Login)
+- Business introduction section — story of the brand, "freshly made, no preservatives/colours" messaging.
+- **Cinematic product showcase**: auto-playing video/animated carousel or parallax scroll highlighting hero products, designed to visually attract buyers (short looping product videos or high-quality animated image transitions).
+- Category browsing (Podis, Pickles, Combos, Best Sellers, New Arrivals).
+
+### 3. Product Discovery & Shopping
+- **Search** with filters (spice level, veg/non-veg, ingredient type, price range).
+- Product detail pages: images/video, ingredients, shelf life, weight/quantity options, customer ratings.
+- **Add to Cart**, update quantity, save for later/wishlist.
+- Cart summary with price breakdown (item cost, delivery, taxes, discounts/coupons).
+
+### 4. Checkout & Payments
+- Address management (add/edit/select delivery address, geolocation support).
+- Payment methods: **UPI** (intent/collect flow) and **Card** payments, integrated via a secure payment gateway SDK.
+- Order confirmation screen with order summary.
+
+### 5. Post-Order Notifications
+- On successful order: send a **thank-you email** to the registered email containing:
+  - Order number
+  - Order summary
+  - Expected delivery date
+- Send the same order confirmation (order number + expected delivery date) via **WhatsApp** to the registered number.
+
+### 6. Additional Production-Readiness Requirements
+- Order tracking/order history page.
+- Push notifications (order status updates).
+- Responsive, accessible UI (WCAG-friendly), dark/light mode optional.
+- Error handling, offline states, loading skeletons.
+- Secure API communication (HTTPS, token refresh, input sanitization).
+- App store & Play Store compliance (privacy policy, permissions handling, app icons/splash screens).
+- Unit/integration tests for critical flows (auth, cart, checkout).
+- CI/CD pipeline suggestion for building and deploying Android/iOS binaries.
+
+## Deliverables Expected from the Agent
+1. Angular project structure (modules/components/services) covering all features above.
+2. Capacitor configuration for Android and iOS builds.
+3. Sample UI implementation for Login, Home (with cinematic showcase), Product Listing, Cart, Checkout.
+4. Integration stubs/services for OTP auth, UPI/Card payment gateway, email service, and WhatsApp API.
+5. Notes on backend endpoints required to support the app.
+6. Deployment checklist for Play Store and App Store submission.
