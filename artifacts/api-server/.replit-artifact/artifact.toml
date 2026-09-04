@@ -1,6 +1,7 @@
 kind = "api"
 previewPath = "/api" # TODO - should be excluded from preview in the first place
-title = "API Server"
+title = "Homemade Podis & Pickles"
+description = "Production storefront and management API"
 version = "1.0.0"
 id = "3B4_FFSkEVBkAeYMFRJ2e"
 
@@ -19,6 +20,8 @@ args = ["pnpm", "--filter", "@workspace/api-server", "run", "build"]
 
 [services.production.build.env]
 NODE_ENV = "production"
+PORT = "8080"
+BASE_PATH = "/"
 
 [services.production.run]
 # we don't run through pnpm to make startup faster in production
@@ -27,6 +30,7 @@ args = ["node", "--enable-source-maps", "artifacts/api-server/dist/index.mjs"]
 [services.production.run.env]
 PORT = "8080"
 NODE_ENV = "production"
+BASE_PATH = "/"
 
 [services.production.health.startup]
 path = "/api/healthz"
