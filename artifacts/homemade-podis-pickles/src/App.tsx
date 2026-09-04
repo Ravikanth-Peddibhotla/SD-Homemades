@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { AccountContent } from '@/components/Storefront';
 import { StoreProvider } from '@/lib/store';
 import { CartPage, CheckoutPage, DiscoverPage, HomePage, ProductPage } from '@/pages/StorefrontPages';
+import { AdminDashboardPage, AdminLoginPage } from '@/pages/AdminPages';
 import NotFound from '@/pages/not-found';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -102,9 +103,12 @@ function ClerkProviderWithRoutes() {
   return <ClerkProvider publishableKey={clerkPubKey} proxyUrl={clerkProxyUrl} appearance={clerkAppearance} signInUrl={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} routerPush={(to) => setLocation(stripBase(to))} routerReplace={(to) => setLocation(stripBase(to), { replace: true })}><StoreProvider><ClerkLoading><div className="min-h-[100dvh] bg-[#f5eee3]" /></ClerkLoading><ClerkCacheInvalidator /><ClerkRoutes /></StoreProvider></ClerkProvider>;
 }
 
+function AdminRoutes() {
+  return <Switch><Route path="/admin/login" component={AdminLoginPage} /><Route path="/admin" component={AdminDashboardPage} /></Switch>;
+}
+
 function App() {
-  if (!clerkPubKey) return <div className="podis-pickles grid min-h-[100dvh] place-items-center bg-[#f5eee3] p-6 text-center"><div><h1 className="pp-display text-3xl font-semibold">The pantry is warming up.</h1><p className="mt-2 text-sm text-[#806b5b]">Authentication configuration is missing.</p></div></div>;
-  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={basePath}><ClerkProviderWithRoutes /></WouterRouter></TooltipProvider><Toaster /></QueryClientProvider>;
+  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={basePath}><Switch><Route path="/admin/*?" component={AdminRoutes} /><Route>{clerkPubKey ? <ClerkProviderWithRoutes /> : <div className="podis-pickles grid min-h-[100dvh] place-items-center bg-[#f5eee3] p-6 text-center"><div><h1 className="pp-display text-3xl font-semibold">The pantry is warming up.</h1><p className="mt-2 text-sm text-[#806b5b]">Authentication configuration is missing.</p></div></div>}</Route></Switch></WouterRouter></TooltipProvider><Toaster /></QueryClientProvider>;
 }
 
 export default App;
