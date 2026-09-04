@@ -7,7 +7,11 @@ type ManagedProduct = { id: string; name: string; shortName: string; category: s
 
 async function api(path: string, options: RequestInit = {}) {
   const response = await fetch(`/api${path}`, { credentials: 'include', headers: { 'Content-Type': 'application/json', ...options.headers }, ...options });
-  const body = response.status === 204 ? null : await response.json();
+  const contentType = response.headers.get('content-type') ?? '';
+  const body = response.status === 204 ? null : contentType.includes('application/json') ? await response.json() : null;
+  if (!body && !response.ok) {
+    throw new Error(response.status === 404 ? 'Admin service is not deployed at this address. Redeploy the API artifact.' : `Admin service returned HTTP ${response.status}`);
+  }
   if (!response.ok) throw new Error(body?.error ?? 'Request failed');
   return body;
 }
