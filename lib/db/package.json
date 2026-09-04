@@ -5,9 +5,18 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./schema": "./src/schema/index.ts"
+    "./schema": "./src/schema/index.ts",
+    "./management": "./src/management.ts",
+    "./management-schema": "./src/management-schema.ts",
+    "./management-auth": "./src/management-auth.ts"
   },
   "scripts": {
+    "generate": "drizzle-kit generate --config ./drizzle.config.ts",
+    "migrate": "drizzle-kit migrate --config ./drizzle.config.ts",
+    "generate:management": "drizzle-kit generate --config ./management.drizzle.config.ts",
+    "migrate:management": "drizzle-kit migrate --config ./management.drizzle.config.ts",
+    "push:management": "drizzle-kit push --config ./management.drizzle.config.ts",
+    "seed:superadmin": "tsx ./scripts/seed-superadmin.ts",
     "push": "drizzle-kit push --config ./drizzle.config.ts",
     "push-force": "drizzle-kit push --force --config ./drizzle.config.ts"
   },
@@ -20,6 +29,7 @@
   "devDependencies": {
     "@types/node": "catalog:",
     "@types/pg": "^8.20.0",
-    "drizzle-kit": "^0.31.10"
+    "drizzle-kit": "^0.31.10",
+    "tsx": "catalog:"
   }
 }

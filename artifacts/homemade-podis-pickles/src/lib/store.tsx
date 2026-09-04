@@ -19,6 +19,7 @@ export type Product = {
   shelf: string;
   heat: Heat;
   vegetarian: boolean;
+  offer?: { name: string; type: 'percentage' | 'fixed'; value: number };
 };
 export type CartLine = { key: string; product: Product; quantity: number; weight: string; saved: boolean };
 
@@ -33,6 +34,7 @@ export const products: Product[] = [
 export const formatPrice = (price: number) => `₹${price.toLocaleString('en-IN')}`;
 
 type StoreValue = {
+  catalog: Product[];
   lines: CartLine[];
   wishlist: string[];
   addToBag: (product: Product, quantity?: number, weight?: string) => void;
@@ -45,6 +47,7 @@ type StoreValue = {
 const StoreContext = createContext<StoreValue | null>(null);
 
 export function StoreProvider({ children }: { children: ReactNode }) {
+  const [catalog, setCatalog] = useState<Product[]>(products);
   const [lines, setLines] = useState<CartLine[]>(() => {
     try { return JSON.parse(localStorage.getItem('hp-lines') ?? '[]') as CartLine[]; } catch { return []; }
   });
@@ -53,8 +56,19 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   });
   useEffect(() => { localStorage.setItem('hp-lines', JSON.stringify(lines)); }, [lines]);
   useEffect(() => { localStorage.setItem('hp-wishlist', JSON.stringify(wishlist)); }, [wishlist]);
+  useEffect(() => {
+    fetch('/api/catalog/products').then((response) => response.ok ? response.json() : Promise.reject()).then((liveProducts: Array<Product & { variants?: Array<{ price: number; compareAt: number | null }>; offers?: Array<{ name: string; type: 'percentage' | 'fixed'; value: number }> }>) => {
+      setCatalog(liveProducts.map((product) => {
+        const variant = product.variants?.[0];
+        const offer = product.offers?.[0];
+        const basePrice = variant?.price ?? product.price;
+        const offerPrice = offer ? offer.type === 'percentage' ? Math.max(0, Math.round(basePrice * (100 - offer.value) / 100)) : Math.max(0, basePrice - offer.value) : basePrice;
+        return { ...product, price: offerPrice, compareAt: variant?.compareAt ?? (offer ? basePrice : product.compareAt), offer };
+      }));
+    }).catch(() => undefined);
+  }, []);
   const value = useMemo<StoreValue>(() => ({
-    lines, wishlist,
+    catalog, lines, wishlist,
     addToBag: (product, quantity = 1, weight = '250 g') => setLines((current) => {
       const key = `${product.id}-${weight}`;
       const found = current.find((line) => line.key === key);
@@ -66,7 +80,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     toggleSaved: (key) => setLines((current) => current.map((line) => line.key === key ? { ...line, saved: !line.saved } : line)),
     toggleWishlist: (id) => setWishlist((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]),
     bagCount: lines.filter((line) => !line.saved).reduce((sum, line) => sum + line.quantity, 0),
-  }), [lines, wishlist]);
+  }), [catalog, lines, wishlist]);
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 }
 
