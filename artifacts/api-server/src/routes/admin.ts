@@ -26,7 +26,9 @@ function cookieToken(request: Request) {
 }
 
 function setSessionCookie(response: Response, token: string, expiresAt: Date) {
-  const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
+  const request = response.req;
+  const forwardedProtocol = request.get("x-forwarded-proto");
+  const secure = request.secure || forwardedProtocol === "https" ? "; Secure" : "";
   response.setHeader("Set-Cookie", `${SESSION_COOKIE}=${token}; HttpOnly; Path=/api/admin; SameSite=Strict; Expires=${expiresAt.toUTCString()}${secure}`);
 }
 
