@@ -16,6 +16,7 @@
     "generate:management": "drizzle-kit generate --config ./management.drizzle.config.ts",
     "migrate:management": "drizzle-kit migrate --config ./management.drizzle.config.ts",
     "push:management": "drizzle-kit push --config ./management.drizzle.config.ts",
+    "seed:demo": "tsx ./scripts/seed-demo.ts",
     "seed:superadmin": "tsx ./scripts/seed-superadmin.ts",
     "push": "drizzle-kit push --config ./drizzle.config.ts",
     "push-force": "drizzle-kit push --force --config ./drizzle.config.ts"
