@@ -14,6 +14,8 @@ _Replace the heading above with the project's name, and this line with one sente
 - `pnpm --filter @workspace/db run push:management` — push management schema changes during development
 - `pnpm --filter @workspace/db run generate:management` / `migrate:management` — generate/apply reviewed management database migrations
 - `SUPERADMIN_EMAIL=... SUPERADMIN_PASSWORD=... pnpm --filter @workspace/db run seed:superadmin` — provision or rotate the first superadmin account
+- `pnpm --filter @workspace/db run seed:demo` — seed both local databases from `lib/db/seed-data/demo.json`
+- Run `pnpm --filter @workspace/db run seed:demo` in the production runtime after injecting production `DATABASE_URL` and `SUPERADMIN_DATABASE_URL` through the secret manager; the fixture is shared, while credentials remain environment-provided.
 - `DATABASE_URL=postgresql://postgres:postgres@localhost:5432/sd_homemades pnpm --filter @workspace/db run push` — apply the schema to a local PostgreSQL database
 - Required env: `DATABASE_URL` — Postgres connection string; copy `.env.example` for local defaults
 - Production secrets: configure `CLERK_SECRET_KEY`, `CLERK_PUBLISHABLE_KEY`, `VITE_CLERK_PUBLISHABLE_KEY`, `DATABASE_URL`, and `SUPERADMIN_DATABASE_URL` in the deployment secret manager; never commit their values.
@@ -33,6 +35,7 @@ _Replace the heading above with the project's name, and this line with one sente
 - Management DB schema: `lib/db/src/management-schema.ts`
 - DB connection and diagnostics: `lib/db/src/index.ts` and `lib/db/src/logger.ts`
 - Audit writer: `lib/db/src/audit.ts`
+- Demo data fixture: `lib/db/seed-data/demo.json`; seeding logic: `lib/db/scripts/seed-demo.ts`
 
 ## Architecture decisions
 

@@ -1,0 +1,92 @@
+{
+  "admin": {
+    "id": "11111111-1111-4111-8111-111111111111",
+    "email": "demo.superadmin@example.com",
+    "displayName": "Demo Superadmin",
+    "password": "DemoSuperadminPassword123!",
+    "passwordSalt": "demo-superadmin-salt"
+  },
+  "products": [
+    {
+      "id": "nalla-karam",
+      "name": "Nalla Karam Garlic Podi",
+      "shortName": "Garlic Podi",
+      "category": "Podi",
+      "description": "Roasted urad dal, sesame and whole garlic, ground coarse so every spoon has a little crunch.",
+      "accent": "#b65b3d",
+      "imageUrl": "/images/podis-products.jpg",
+      "tags": ["Bestseller", "No preservatives"],
+      "ingredients": ["Urad dal", "Sesame", "Whole garlic", "Byadgi chilli", "Curry leaves"],
+      "shelfLife": "45 days · pantry stable",
+      "heat": "medium",
+      "vegetarian": true,
+      "rating": 490,
+      "reviewCount": 128
+    },
+    {
+      "id": "gongura",
+      "name": "Gongura & Green Chilli Pickle",
+      "shortName": "Gongura Pickle",
+      "category": "Pickle",
+      "description": "Tangy gongura leaves with green chilli and cold-pressed sesame oil. A bright Andhra classic.",
+      "accent": "#6f7a4b",
+      "imageUrl": "/images/podis-hero.jpg",
+      "tags": ["Fresh batch", "Andhra recipe"],
+      "ingredients": ["Gongura leaves", "Green chilli", "Mustard", "Sesame oil", "Garlic"],
+      "shelfLife": "60 days · refrigerate after opening",
+      "heat": "fiery",
+      "vegetarian": true,
+      "rating": 480,
+      "reviewCount": 94
+    },
+    {
+      "id": "comfort-combo",
+      "name": "The Comfort Rice Combo",
+      "shortName": "Comfort Combo",
+      "category": "Combo",
+      "description": "One jar each of garlic podi, gongura pickle and curry leaf podi for the weekday rice ritual.",
+      "accent": "#a44e32",
+      "imageUrl": "/images/podis-hero.jpg",
+      "tags": ["Save ₹75", "Giftable"],
+      "ingredients": ["Garlic podi", "Gongura pickle", "Curry leaf podi"],
+      "shelfLife": "45–90 days · see individual jars",
+      "heat": "medium",
+      "vegetarian": true,
+      "rating": 490,
+      "reviewCount": 43
+    }
+  ],
+  "variants": [
+    { "id": "44444444-4444-4444-8444-444444444441", "productId": "nalla-karam", "label": "250 g", "grams": 250, "price": 245, "compareAt": 280, "stockQuantity": 40 },
+    { "id": "44444444-4444-4444-8444-444444444442", "productId": "nalla-karam", "label": "500 g", "grams": 500, "price": 405, "compareAt": 440, "stockQuantity": 20 },
+    { "id": "44444444-4444-4444-8444-444444444443", "productId": "gongura", "label": "250 g", "grams": 250, "price": 295, "compareAt": null, "stockQuantity": 30 },
+    { "id": "44444444-4444-4444-8444-444444444444", "productId": "comfort-combo", "label": "Combo", "grams": 750, "price": 690, "compareAt": 765, "stockQuantity": 12 }
+  ],
+  "offer": {
+    "id": "33333333-3333-4333-8333-333333333331",
+    "productId": "nalla-karam",
+    "variantId": "44444444-4444-4444-8444-444444444441",
+    "name": "Fresh batch offer",
+    "code": "FRESH10",
+    "type": "percentage",
+    "value": 10,
+    "daysAgo": 1,
+    "daysUntilExpiry": 30,
+    "maxRedemptions": 100
+  },
+  "customer": {
+    "userId": "22222222-2222-4222-8222-222222222222",
+    "clerkUserId": "demo_clerk_user_001",
+    "email": "demo.customer@example.com",
+    "name": "Demo Customer",
+    "addressId": "22222222-2222-4222-8222-222222222223",
+    "cartId": "22222222-2222-4222-8222-222222222224",
+    "orderId": "22222222-2222-4222-8222-222222222225",
+    "orderItemId": "22222222-2222-4222-8222-222222222226",
+    "wishlistId": "22222222-2222-4222-8222-222222222227",
+    "auditId": "22222222-2222-4222-8222-222222222228",
+    "address": { "label": "Home", "line1": "12B, Road No. 12", "line2": "Banjara Hills", "city": "Hyderabad", "state": "Telangana", "postalCode": "500034" },
+    "orderNumber": "HP-DEMO-0001"
+  },
+  "managementAuditId": "33333333-3333-4333-8333-333333333332"
+}

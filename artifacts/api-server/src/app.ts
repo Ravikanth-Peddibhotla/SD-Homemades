@@ -15,6 +15,8 @@ import { logger } from "./lib/logger";
 
 const app: Express = express();
 const storefrontDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../homemade-podis-pickles/dist/public");
+const hasValidClerkSecret = /^sk_(test|live)_/.test(process.env.CLERK_SECRET_KEY ?? "");
+const hasValidClerkPublishable = /^pk_(test|live)_/.test(process.env.CLERK_PUBLISHABLE_KEY ?? "");
 
 app.use(
   pinoHttp({
@@ -40,7 +42,7 @@ app.use(CLERK_PROXY_PATH, clerkProxyMiddleware());
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-if (process.env.CLERK_SECRET_KEY) {
+if (hasValidClerkSecret && hasValidClerkPublishable) {
   app.use(
     clerkMiddleware((req) => ({
       publishableKey: publishableKeyFromHost(
@@ -53,7 +55,7 @@ if (process.env.CLERK_SECRET_KEY) {
 
 app.use("/api", router);
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production" || process.env.SERVE_STOREFRONT === "true") {
   app.use(express.static(storefrontDir));
   app.use((request, response, next) => {
     if (request.method === "GET" && !request.path.startsWith("/api")) {
